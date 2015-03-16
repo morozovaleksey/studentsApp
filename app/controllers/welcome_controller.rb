@@ -1,11 +1,16 @@
 require 'socket'
 class WelcomeController < ApplicationController
   def index
-    # @students = Student.paginate(:page => params[:page], :per_page => 10)
+
   end
 
   def create_student
-    render json: Student.create(get_params)
+    if Student.where(:id => params[:id]).blank?
+      render json: Student.create(get_params)
+    else
+      student_record = Student.where(:id => params[:id]).limit(1)
+      render json: student_record.update(student_record[0].id,:last_name => params[:last_name], :name => params[:name], :group => params[:group], :email => params[:email], :date_of_birth => params[:date_of_birth])
+    end
   end
   def get_ip_address
     #public ip
@@ -21,12 +26,12 @@ class WelcomeController < ApplicationController
     #   s.addr.last
     # end
   end
-  def show_student
-    render json: Student.find(params[:id])
+  def delete_student
+    render json: Student.delete(params[:id])
   end
 
   def list_students
-    render json: Student.all
+    render json: Student.order('id')
   end
   private
   def get_params

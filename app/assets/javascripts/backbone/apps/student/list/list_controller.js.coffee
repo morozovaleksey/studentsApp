@@ -5,6 +5,7 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
       console.log "List"
       @layoutView = @getLayoutView()
       @createStudent(@layoutView)
+      @editStudent(@layoutView)
       @showStudents()
 
     getLayoutView: ->
@@ -18,7 +19,20 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
       layoutView.studentModel = @studentModel
       layoutView.on 'submit:button:click', =>
         @studentModel.attributes
-        @studentModel.save @studentModel.attributes,
+        console.log @studentModel.save @studentModel.attributes,
+          type: "post"
+          success: (model, response) =>
+            console.log "Success Model"
+            @showStudents()
+          error: (model, response) =>
+            console.log "Error"
+
+    editStudent: (layoutView) ->
+#      @studentModel = App.request "student:model"
+#      layoutView.studentModel = @studentModel
+      layoutView.on 'submit:edit:button:click', =>
+        @studentModel.attributes
+        console.log @studentModel.save @studentModel.attributes,
           type: "post"
           success: (model, response) =>
             console.log "Success Model"
@@ -29,11 +43,13 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
     showStudents: ->
       @studentCollection = App.request "student:collection"
       @studentCollection.fetch
-        reset: false,
+        reset: true,
+        sort:false,
         type: "post",
         success: =>
           console.log "Success Collection"
           studentsListView =  @getStudentsCompositeView collection: @studentCollection
           studentsListView.render()
           $("#js-table-all-users").html(studentsListView.el)
+
 
