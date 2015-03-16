@@ -52,4 +52,5 @@ gem "gon"
 gem 'nokogiri'
 gem 'httparty'
 gem "js-routes"
+gem 'will_paginate'
 

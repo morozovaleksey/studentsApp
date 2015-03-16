@@ -4,10 +4,10 @@ class CreateStudents < ActiveRecord::Migration
       t.string :name
       t.string :last_name
       t.string :group
-      t.string :group
-      t.datetime :date_of_birth
+      t.date :date_of_birth
       t.string :email
-      t.timestamps null: false
+      t.string :ip_address
+      t.timestamps
     end
   end
 end
