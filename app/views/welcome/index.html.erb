@@ -1,22 +1,8 @@
-<div class="navbar navbar-default">
-  <div class="container">
-    <a class="navbar-brand" href="#">Brand</a>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
-      <li class="divider-vertical"></li>
-      <li><a href="#">More</a></li>
-      <li><a href="#">Options</a></li>
-    </ul>
-  </div>
-</div>
-
 <div class="container">
   <div class="jumbotron text-center">
     <h1>Система управления реестром студентов</h1>
     <p class="lead">Вы можете добавить нового студента, а также просмотреть список всех студентов.</p>
-    <p><a class="btn btn-large btn-success" target="ext" data-toggle="modal" data-target="#myModal">Добавить студента</a></p>
+    <p><a class="btn btn-large btn-success"  target="ext" data-toggle="modal" data-target="#myModal">Добавить студента</a></p>
   </div>
   <!-- Modal -->
   <div id="new-student">
@@ -49,7 +35,11 @@
                 <div class="form-group">
                   <label for="labelGroup" class="col-sm-2 control-label">Учебная группа</label>
                   <div class="col-sm-10">
-                    <input type="text" class="form-control" id="input-group" placeholder="Учебная группа">
+                    <select class="selectpicker form-control" id="select-group">
+                      <% @groups.each do |group| %>
+                          <option value="<%= group[:id] %>"> <%= group[:group_name] %> </option>
+                      <% end %>
+                    </select>
                   </div>
                 </div>
                 <div class="form-group">
@@ -105,7 +95,11 @@
               <div class="form-group">
                 <label for="labelGroup" class="col-sm-2 control-label">Учебная группа</label>
                 <div class="col-sm-10">
-                  <input type="text" class="form-control" id="input-group-edit" placeholder="Учебная группа">
+                  <select class="selectpicker form-control" id="select-group-edit" >
+                    <% @groups.each do |group| %>
+                        <option value="<%= group[:id] %>"> <%= group[:group_name] %> </option>
+                    <% end %>
+                  </select>
                 </div>
               </div>
               <div class="form-group">
@@ -172,6 +166,7 @@
       <th>Имя</th>
       <th>Группа</th>
       <th>Email</th>
+      <th>Дата рождения</th>
       <th>Ip адресс</th>
     </tr>
     </thead>
@@ -184,12 +179,13 @@
 
 <script id="row-template" type="text/template">
 
-  <td class='text-center' id="<%%= id %>"> <%%= id %></td>
-  <td class='text-center' id="<%%= id %>"> <%%= last_name %></td>
-  <td class='text-center' id="<%%= id %>"> <%%= name %></td>
-  <td class='text-center' id="<%%= id %>"> <%%= group %></td>
-  <td class='text-center' id="<%%= id %>"> <%%= email %></td>
-  <td class='text-center' id="<%%= id %>"> <%%= ip_address %></td>
+  <td class='text-center'> <%%= id %></td>
+  <td class='text-center'> <%%= last_name %></td>
+  <td class='text-center'> <%%= name %></td>
+  <td class='text-center'> <%%= group_name %></td>
+  <td class='text-center'> <%%= email %></td>
+  <td class='text-center'> <%%= date_of_birth %></td>
+  <td class='text-center'> <%%= ip_address %></td>
   <td><a class='btn btn-large btn-success' id='edit-student' data-id="<%%= id %>" target="ext" data-toggle="modal" data-target="#myModalEdit">Изменить студента</a> </td>
   <td><a class='btn btn-large btn-success' id='delete-student' data-id="<%%= id %>">Удалить студента</a> </td>
 

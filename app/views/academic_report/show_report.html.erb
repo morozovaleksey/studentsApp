@@ -1,0 +1,95 @@
+
+
+<div class="container">
+  <div class="jumbotron text-center">
+    <h1>Зачётная ведомость студентов</h1>
+  </div>
+
+  <div class="row">
+    <div class="col-lg-6">
+      <h4>Список всех студентов</h4>
+      <div class="table-responsive ng-scope" id="js-table-all-users"><div>
+        <table class="table" id="all-students">
+          <thead>
+          <tr>
+            <th class="text-center">ID</th>
+            <th>Фамилия</th>
+            <th>Имя</th>
+            <th>Группа</th>
+            <th>Email</th>
+            <th>Ip адресс</th>
+            <% @subjects.each do |subject| %>
+                <th> <%= subject[:subject_name] %> </th>
+            <% end %>
+            <th>Средний бал</th>
+          </tr>
+          </thead>
+          <tbody id="test-students">
+          <tr>
+            <td class="text-center"> 9</td>
+            <td class="text-center"> Петров</td>
+            <td class="text-center"> Иван</td>
+            <td class="text-center"> ИУС-4</td>
+            <td class="text-center"> petrov@gmail.com</td>
+            <td class="text-center"> 178.34.158.113</td>
+          </tr>
+          </tbody>
+        </table>
+
+      </div></div>
+
+    </div>
+    <h4>Powerful Grid</h4>
+    <p>3 responsive grid sizes to control the grid layout on tiny, small and large displays.</p>
+  </div>
+
+  <div class="col-lg-6">
+    <h4>New Elements</h4>
+    <p>New panels, list groups, glyphicons and justified navigation.</p>
+
+    <h4>Less Bloat</h4>
+    <p>The optimized CSS is in a single file. Glyphicons are now separate.</p>
+  </div>
+</div>
+
+<hr>
+
+<div class="jumbotron text-center">
+  <h2>Moving from Bootstrap 2.x to 3.0?</h2>
+  <p class="lead">Everything has changed, so you can't just replace the 2.x with the 3.0 files. The folks at Bootply, the Bootstrap Playground have created a migration guide to help.</p>
+  <p><a class="btn btn-large btn-success" href="http://www.bootply.com/bootstrap-3-migration-guide" target="ext">Migration Guide</a></p>
+</div>
+
+</div> <!-- /container -->
+<!-- script references -->
+<script id="grid-template" type="text/template">
+  <table class="table" id="all-students">
+    <thead>
+    <tr>
+      <th class="text-center">ID</th>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Группа</th>
+      <th>Email</th>
+      <th>Ip адресс</th>
+    </tr>
+    </thead>
+    <tbody id="test-students">
+
+    </tbody>
+  </table>
+
+</script>
+
+<script id="row-template" type="text/template">
+
+  <td class='text-center' id="<%%= id %>"> <%%= id %></td>
+  <td class='text-center' id="<%%= id %>"> <%%= last_name %></td>
+  <td class='text-center' id="<%%= id %>"> <%%= name %></td>
+  <td class='text-center' id="<%%= id %>"> <%%= group %></td>
+  <td class='text-center' id="<%%= id %>"> <%%= email %></td>
+  <td class='text-center' id="<%%= id %>"> <%%= ip_address %></td>
+  <td><a class='btn btn-large btn-success' id='edit-student' data-id="<%%= id %>" target="ext" data-toggle="modal" data-target="#myModalEdit">Изменить студента</a> </td>
+  <td><a class='btn btn-large btn-success' id='delete-student' data-id="<%%= id %>">Удалить студента</a> </td>
+
+</script>

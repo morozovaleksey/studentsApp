@@ -1,0 +1,2 @@
+module AcademicReportHelper
+end

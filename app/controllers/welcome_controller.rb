@@ -1,7 +1,8 @@
 require 'socket'
 class WelcomeController < ApplicationController
   def index
-
+    gon.params = params
+    @groups = Group.all
   end
 
   def create_student
@@ -9,7 +10,7 @@ class WelcomeController < ApplicationController
       render json: Student.create(get_params)
     else
       student_record = Student.where(:id => params[:id]).limit(1)
-      render json: student_record.update(student_record[0].id,:last_name => params[:last_name], :name => params[:name], :group => params[:group], :email => params[:email], :date_of_birth => params[:date_of_birth])
+      render json: student_record.update(student_record[0].id,:last_name => params[:last_name], :name => params[:name], :group_id => params[:group_id], :email => params[:email], :date_of_birth => params[:date_of_birth])
     end
   end
   def get_ip_address
@@ -31,11 +32,15 @@ class WelcomeController < ApplicationController
   end
 
   def list_students
-    render json: Student.order('id')
+    render json: Student.select('students.id,students.name,students.last_name, students.email, students.date_of_birth, students.ip_address, groups.group_name,groups.id AS group_id').joins('LEFT OUTER JOIN groups ON students.group_id = groups.id').order('id')
+
+    # render json: Student.joins('LEFT OUTER JOIN groups ON groups.id = students.group_id')
+    # render json: Student.order('id_student')
+
   end
   private
   def get_params
     params[:welcome].merge!(:ip_address => get_ip_address)
-    params.require(:welcome).permit(:last_name, :name, :group, :email, :date_of_birth, :ip_address)
+    params.require(:welcome).permit(:last_name, :name, :group_id, :email, :date_of_birth, :ip_address)
   end
 end

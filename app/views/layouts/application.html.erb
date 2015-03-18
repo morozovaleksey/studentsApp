@@ -2,12 +2,22 @@
 <html>
 <head>
   <title>StudentsTestApp</title>
+  <%= include_gon %>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="navbar navbar-default">
+  <div class="container" id="header-region">
+    <a class="navbar-brand" href="#">Brand</a>
+    <ul class="nav navbar-nav">
+      <li class="active"><a id="main" href="/">Главная</a></li>
+      <li><a id="report" href="<%=academic_report_path %>">Ведомость</a></li>
 
+    </ul>
+  </div>
+</div>
 <%= yield %>
 
 </body>

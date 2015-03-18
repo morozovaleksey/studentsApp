@@ -19,11 +19,15 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
       layoutView.studentModel = @studentModel
       layoutView.on 'submit:button:click', =>
         @studentModel.attributes
+        console.log "Create"
         console.log @studentModel.save @studentModel.attributes,
           type: "post"
           success: (model, response) =>
             console.log "Success Model"
             @showStudents()
+            alert "Студент успешно добавлен"
+            $('#myModal').modal('hide')
+            App.vent.trigger "empty:value:student"
           error: (model, response) =>
             console.log "Error"
 
@@ -31,7 +35,8 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
 #      @studentModel = App.request "student:model"
 #      layoutView.studentModel = @studentModel
       layoutView.on 'submit:edit:button:click', =>
-        @studentModel.attributes
+        console.log "EDIT"
+        console.log @studentModel.attributes
         console.log @studentModel.save @studentModel.attributes,
           type: "post"
           success: (model, response) =>
@@ -42,7 +47,7 @@ App.module "StudentApp.List", (List, App, Backbone, Marionette, $, _) ->
 
     showStudents: ->
       @studentCollection = App.request "student:collection"
-      @studentCollection.fetch
+      console.log @studentCollection.fetch
         reset: true,
         sort:false,
         type: "post",
