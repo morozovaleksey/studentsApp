@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   post 'new_student', to: 'welcome#create_student'
   post 'list_students', to: 'welcome#list_students'
   post 'delete_student', to: 'welcome#delete_student'
+  post 'report', to: 'academic_report#report_list_students'
   get 'academic_report', to: 'academic_report#show_report'
 
   # Example of regular route:

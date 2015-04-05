@@ -53,4 +53,5 @@ gem 'nokogiri'
 gem 'httparty'
 gem "js-routes"
 gem 'will_paginate'
+gem 'pivot_table'
 
