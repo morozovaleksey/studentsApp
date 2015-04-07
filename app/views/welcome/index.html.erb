@@ -1,49 +1,142 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <meta charset="utf-8">
-  <title>Bootstrap 3 Fixed Width Example</title>
-  <meta name="generator" content="Bootply" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link href="css/bootstrap.min.css" rel="stylesheet">
-  <!--[if lt IE 9]>
-  <script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
-  <![endif]-->
-  <link href="css/styles.css" rel="stylesheet">
-</head>
-<body>
-
-<div class="navbar navbar-default">
-  <div class="container">
-    <a class="navbar-brand" href="#">Brand</a>
-    <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Home</a></li>
-      <li><a href="#">Link</a></li>
-      <li><a href="#">Link</a></li>
-      <li class="divider-vertical"></li>
-      <li><a href="#">More</a></li>
-      <li><a href="#">Options</a></li>
-    </ul>
-  </div>
-</div>
-
 <div class="container">
   <div class="jumbotron text-center">
     <h1>Система управления реестром студентов</h1>
     <p class="lead">Вы можете добавить нового студента, а также просмотреть список всех студентов.</p>
-    <p><a class="btn btn-large btn-success" href="http://bootply.com/tagged/bootstrap-3" target="ext">More Examples</a></p>
+    <p><a class="btn btn-large btn-success"  target="ext" data-toggle="modal" data-target="#myModal">Добавить студента</a></p>
+  </div>
+  <!-- Modal -->
+  <div id="new-student">
+      <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <h4 class="modal-title" id="myModalLabel">Добавить</h4>
+            </div>
+            <div class="modal-body">
+              <form class="form-horizontal" id="form-create-new-student">
+                <div class="form-group">
+                  <div class="col-sm-10">
+                    <input type="hidden"  id="input-id" name="student[id]">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="labelLastName" class="col-sm-2 control-label">Фамилия</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="input-last-name" name="student[last_name]" placeholder="Фамилия">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="labelName" class="col-sm-2 control-label">Имя</label>
+                  <div class="col-sm-10">
+                    <input type="text" class="form-control" id="input-name" placeholder="Имя">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="labelGroup" class="col-sm-2 control-label">Учебная группа</label>
+                  <div class="col-sm-10">
+                    <select class="selectpicker form-control" id="select-group">
+                      <% @groups.each do |group| %>
+                          <option value="<%= group[:id] %>"> <%= group[:group_name] %> </option>
+                      <% end %>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                  <div class="col-sm-10">
+                    <input type="email" class="form-control" id="input-email" placeholder="Email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="inputDateOfBirth" class="col-sm-2 control-label">Дата рождения</label>
+                  <div class="col-sm-10">
+                    <input type="date" class="form-control" id="input-date-of-birth" placeholder="Дата рождения">
+                  </div>
+                </div>
+
+
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <div class="modal fade" id="myModalEdit" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Редактировать</h4>
+          </div>
+          <div class="modal-body">
+            <form class="form-horizontal" id="form-edit-student">
+              <div class="form-group">
+                <div class="col-sm-10">
+                  <input type="hidden"  id="input-id-edit" name="student[id]">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="labelLastName" class="col-sm-2 control-label">Фамилия</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-last-name-edit" name="student[last_name]" placeholder="Фамилия">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="labelName" class="col-sm-2 control-label">Имя</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-name-edit" placeholder="Имя">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="labelGroup" class="col-sm-2 control-label">Учебная группа</label>
+                <div class="col-sm-10">
+                  <select class="selectpicker form-control" id="select-group-edit" >
+                    <% @groups.each do |group| %>
+                        <option value="<%= group[:id] %>"> <%= group[:group_name] %> </option>
+                    <% end %>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="input-email-edit" placeholder="Email">
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="inputDateOfBirth" class="col-sm-2 control-label">Дата рождения</label>
+                <div class="col-sm-10">
+                  <input type="date" class="form-control" id="input-date-of-birth-edit" placeholder="Дата рождения">
+                </div>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="button-edit-student">Save changes</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="row">
     <div class="col-lg-6">
-      <h4>Mobile First</h4>
-      <p>Responsive by default, and a clean "flat" design.</p>
+      <h4>Список всех студентов</h4>
+      <div class="table-responsive ng-scope" id="js-table-all-users">
 
+      </div>
+
+    </div>
       <h4>Powerful Grid</h4>
       <p>3 responsive grid sizes to control the grid layout on tiny, small and large displays.</p>
-    </div>
+  </div>
 
     <div class="col-lg-6">
       <h4>New Elements</h4>
@@ -64,7 +157,36 @@
 
 </div> <!-- /container -->
 <!-- script references -->
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-</body>
-</html>
+<script id="grid-template" type="text/template">
+  <table class="table" id="all-students">
+    <thead>
+    <tr>
+      <th class="text-center">ID</th>
+      <th>Фамилия</th>
+      <th>Имя</th>
+      <th>Группа</th>
+      <th>Email</th>
+      <th>Дата рождения</th>
+      <th>Ip адресс</th>
+    </tr>
+    </thead>
+    <tbody id="test-students">
+
+    </tbody>
+  </table>
+
+</script>
+
+<script id="row-template" type="text/template">
+
+  <td class='text-center'> <%%= id %></td>
+  <td class='text-center'> <%%= last_name %></td>
+  <td class='text-center'> <%%= name %></td>
+  <td class='text-center'> <%%= group_name %></td>
+  <td class='text-center'> <%%= email %></td>
+  <td class='text-center'> <%%= date_of_birth %></td>
+  <td class='text-center'> <%%= ip_address %></td>
+  <td><a class='btn btn-large btn-success' id='edit-student' data-id="<%%= id %>" target="ext" data-toggle="modal" data-target="#myModalEdit">Изменить студента</a> </td>
+  <td><a class='btn btn-large btn-success' id='delete-student' data-id="<%%= id %>">Удалить студента</a> </td>
+
+</script>

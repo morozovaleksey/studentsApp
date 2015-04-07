@@ -11,19 +11,51 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150314122307) do
+ActiveRecord::Schema.define(version: 20150318102239) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "assessments", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "subject_id"
+    t.integer "assessment"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string   "group_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "groups_students", id: false, force: :cascade do |t|
+    t.integer "group_id",   null: false
+    t.integer "student_id", null: false
+  end
+
+  add_index "groups_students", ["group_id"], name: "index_groups_students_on_group_id", using: :btree
+  add_index "groups_students", ["student_id"], name: "index_groups_students_on_student_id", using: :btree
+
+  create_table "semesters", force: :cascade do |t|
+    t.integer  "semester_number"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+  end
+
   create_table "students", force: :cascade do |t|
-    t.string   "name"
-    t.string   "last_name"
-    t.string   "group"
-    t.datetime "date_of_birth"
-    t.string   "email"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.string  "name"
+    t.string  "last_name"
+    t.integer "group_id"
+    t.date    "date_of_birth"
+    t.string  "email"
+    t.string  "ip_address"
+  end
+
+  create_table "subjects", force: :cascade do |t|
+    t.integer  "semester_id"
+    t.string   "subject_name"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
   end
 
 end
